@@ -17,22 +17,22 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   // const url = "/api/auth";
-  const dispatch = useUserDispatch();
+  const { loginUser } = useUserDispatch();
   const store = useUserStore();
   const { mutate: login, error, isLoading, data } = useMutationLogin();
 
   const history = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     // e.preventDefault();
-    await login({ email, password });
+    login({ email, password });
   };
 
   useEffect(() => {
     if (data) {
-      dispatch({ type: "LOGIN_USER", payload: data });
+      loginUser(data);
     }
-  }, [data, dispatch]);
+  }, [data, loginUser]);
 
   useEffect(() => {
     if (store.isAuth) {

@@ -20,18 +20,18 @@ export default function makeStore(reducer, initialState) {
   const StoreProvider = ({ children }) => {
     const [store, dispatch] = React.useReducer(reducer, initialState);
 
-    // const loginUser = (data) => {
-    //   return dispatch({ type: LOGIN_USER, payload: data });
-    // };
+    const loginUser = (data) => {
+      return dispatch({ type: LOGIN_USER, payload: data });
+    };
 
-    // const logoutUser = () => {
-    //   return dispatch({ type: LOGOUT_USER });
-    // };
+    const logoutUser = () => {
+      return dispatch({ type: LOGOUT_USER });
+    };
 
-    // const _dispatch = { loginUser, logoutUser };
+    const _dispatch = { loginUser, logoutUser };
 
     return (
-      <dispatchContext.Provider value={dispatch}>
+      <dispatchContext.Provider value={_dispatch}>
         <storeContext.Provider value={store}>{children}</storeContext.Provider>
       </dispatchContext.Provider>
     );

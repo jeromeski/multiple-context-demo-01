@@ -1,4 +1,3 @@
-import localforage from "localforage";
 import React, { Fragment } from "react";
 import { Button, Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -8,12 +7,11 @@ import { useUserDispatch, useUserStore } from "../context/user.context";
 export default function CustomNavbar() {
   useLogger("Navbar");
   const store = useUserStore();
-  const dispatch = useUserDispatch();
+  const { logoutUser } = useUserDispatch();
   const { isAuth, user } = store;
 
   const handleLogout = () => {
-    dispatch({ type: "LOGOUT_USER" });
-    // localforage.removeItem("auth");
+    logoutUser();
   };
 
   console.log(store);
