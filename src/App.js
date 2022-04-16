@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { StoreProvider } from "./context/auth.context";
 import Login from "./pages/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
@@ -7,6 +6,7 @@ import CustomNavbar from "./components/CustomNavbar";
 import Home from "./pages/Home";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useRef } from "react";
+import { UserProvider } from "./context/user.context";
 
 function App() {
   return (
@@ -29,9 +29,9 @@ export default function CustomApp() {
   }
   return (
     <QueryClientProvider client={queryClientRef.current}>
-      <StoreProvider>
+      <UserProvider>
         <App />
-      </StoreProvider>
+      </UserProvider>
     </QueryClientProvider>
   );
 }

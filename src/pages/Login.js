@@ -1,11 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  // useCallback,
+  useEffect,
+  useState
+} from "react";
 import ErrorComponent from "../components/ErrorComponent";
 import { Button, Col, Container, Form, FormGroup, Row } from "react-bootstrap";
 import CustomCard from "../components/CustomCard";
 import { useMutationLogin } from "../api/mock-api";
-import { useStore } from "../context/auth.context";
 import { useLogger } from "react-use";
 import { useNavigate } from "react-router-dom";
+import { useUserDispatch, useUserStore } from "../context/user.context";
 
 export default function Login() {
   useLogger("Login -->");
@@ -13,31 +17,31 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   // const url = "/api/auth";
-  const [store, dispatch] = useStore();
+  const dispatch = useUserDispatch();
+  const store = useUserStore();
   const { mutate: login, error, isLoading, data } = useMutationLogin();
 
   const history = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     // e.preventDefault();
-    login({ email, password });
+    await login({ email, password });
   };
-
-  const loginUser = useCallback(() => {
-    dispatch({ type: "LOGIN", payload: data });
-  }, [data, dispatch]);
 
   useEffect(() => {
     if (data) {
-      loginUser();
+      dispatch({ type: "LOGIN_USER", payload: data });
     }
-  }, [data, loginUser]);
+  }, [data, dispatch]);
 
   useEffect(() => {
     if (store.isAuth) {
       history("/");
     }
   }, [store.isAuth, history]);
+
+  console.log("data", data);
+  console.log("store", store);
 
   return (
     <Container className="h-100">

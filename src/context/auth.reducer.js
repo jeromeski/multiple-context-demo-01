@@ -13,13 +13,13 @@ export const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "LOGIN":
+    case "LOGIN_USER":
       return {
         ...state,
         user: { ...action.payload },
         isAuth: true
       };
-    case "LOGOUT":
+    case "LOGOUT_USER":
       return {
         ...state,
         user: {},

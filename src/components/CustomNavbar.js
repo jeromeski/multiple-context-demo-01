@@ -3,17 +3,20 @@ import React, { Fragment } from "react";
 import { Button, Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useLogger } from "react-use";
-import { useStore } from "../context/auth.context";
+import { useUserDispatch, useUserStore } from "../context/user.context";
 
 export default function CustomNavbar() {
   useLogger("Navbar");
-  const [store, dispatch] = useStore();
+  const store = useUserStore();
+  const dispatch = useUserDispatch();
   const { isAuth, user } = store;
 
   const handleLogout = () => {
-    dispatch({ type: "LOGOUT" });
-    localforage.removeItem("auth");
+    dispatch({ type: "LOGOUT_USER" });
+    // localforage.removeItem("auth");
   };
+
+  console.log(store);
 
   return (
     <div>
